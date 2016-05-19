@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog.bracelab.com - Articles</title>
+    <description>Adventures in software development &lt;br/&gt;and getting things done.</description>
+    <link>
+    https://blog.bracelab.com</link>
+    
+      
+      <item>
+        <title>Achieving a Perfect SSL Labs Score with Go</title>
+        
+          <description>
+&lt;p&gt;Go does a great job of getting a good SSL Labs Score out of the box,
+however I thought it would be interesting to see what would be needed
+to achieve the perfect score, getting 100% in all categories and not just a boring A.&lt;/p&gt;
+
+&lt;p&gt;There are plenty of guides around that demonstrate how to do this with NGINX or
+Apache, but there seems little that explains what is required for a typical
+Go app.&lt;/p&gt;
+
+&lt;p&gt;Qualys have a detailed guide that is very clear about how you can improve your score.
+I’ll refer to various sections, however you can
+&lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;check it out yourself here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;First of all, let’s see what Go scores with default configuration.&lt;/p&gt;
+
+&lt;h3 id=&quot;standard-go-server-with-tls&quot;&gt;Standard Go Server With TLS&lt;/h3&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/a45f313a87b2681f3473937a8a51e2cc.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;and the score…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/go-ssl-perfect-score/01-standard.png&quot; alt=&quot;Standard Go Server - SSL Labs Result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;OK, not bad. An A is a pretty good score. Let’s see if we can get an A+.&lt;/p&gt;
+
+&lt;h3 id=&quot;getting-an-a-with-hsts&quot;&gt;Getting an A+ with HSTS&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt; states:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;New grade A+ is introduced for servers with exceptional configurations. At the
+moment, this grade is awarded to servers with good configuration, no warnings,
+and HTTP Strict Transport Security support with a &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; of at least 6 months.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The basic server already has a good configuration and no warnings, so we just
+need to add &lt;a href=&quot;https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security&quot;&gt;HSTS&lt;/a&gt;
+(with a long &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;HSTS is simply a HTTP header (&lt;code class=&quot;highlighter-rouge&quot;&gt;Strict-Transport-Security&lt;/code&gt;) that instructs the browser to change all http:// requests
+to https://.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/27b1ae2df7da7f91522dc643ff3fff36.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Excellent. We now get an A+.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/go-ssl-perfect-score/02-hsts.png&quot; alt=&quot;HSTS Support- SSL Labs Result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;You should probably stop here.&lt;/strong&gt; Continuing to attempt to achieve a perfect score
+will result in reduced client compatibility. This means that many users will not
+be able to access your site.&lt;/p&gt;
+
+&lt;h3 id=&quot;protocol-support&quot;&gt;Protocol Support&lt;/h3&gt;
+
+&lt;p&gt;Protocol support is already at 90%, so there shouldn’t be much to do.&lt;/p&gt;
+
+&lt;p&gt;Getting 100% requires that the server only supports TLS 1.2 or above. This is
+easily changed by manually configuring a &amp;amp;tls.Config{} struct rather than
+allowing the server to use the default configuration.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/e38ed8de7d1f064e4ad1ed4e3cc13025.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Re-running the test…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/go-ssl-perfect-score/03-protocol-support.png&quot; alt=&quot;Protocol Support- SSL Labs Result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Great. 100% on protocol support. Onto key exchange.&lt;/p&gt;
+
+&lt;h3 id=&quot;key-exchange&quot;&gt;Key Exchange&lt;/h3&gt;
+
+&lt;p&gt;From the &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Key or DH parameter strength &amp;gt;= 4096 bits (e.g., 4096)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Looking at my private key, the default size provided by Let’s Encrypt is 2048 bit.
+Re-generating a new one was easy. I use &lt;a href=&quot;https://github.com/xenolf/lego&quot;&gt;an excellent third party ACME client called Lego&lt;/a&gt;.
+This tool is also written in Go and is very easy to use. I retrieved a new key with the
+following command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lego -d tlstest.example.com -m admin@example.com --rsa-key-size=4096 run&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, I was required to change the CurvePreferences, to prioritise using the
+elliptic curve algorithms with an approximate comparable symmetric key size of &amp;gt;=4096 bit.&lt;/p&gt;
+
+&lt;p&gt;I simply took the default configuration from the go source and moved the lower
+equivalent key size to the end.
+&lt;!---
+http://tools.ietf.org/html/draft-ietf-msec-mikey-ecc-03 see table:1)
+--&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/ffede7461638a22ac01e6c3538192f74.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Re-running the test…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/go-ssl-perfect-score/04-key-exchange.png&quot; alt=&quot;Key Exchange - SSL Labs Result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Whoop! 100% on key exchange. Just one more.&lt;/p&gt;
+
+&lt;h3 id=&quot;cipher-strength&quot;&gt;Cipher Strength&lt;/h3&gt;
+
+&lt;p&gt;From the &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Start with the score of the strongest cipher.&lt;/li&gt;
+    &lt;li&gt;Add the score of the weakest cipher.&lt;/li&gt;
+    &lt;li&gt;Divide the total by 2.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&amp;gt;= 256 bits (e.g., 256) = 100%&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This means I need to take the default CipherSuites and simply remove any that
+use a cipher smaller than 256bit.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/6dd08518661f3cf69ea79b0978d9e5b8.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;No HTTP/2 for you! - HTTP/2 was enabled by default in go 1.6, however HTTP/2
+mandates the support of the cipher suite TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256.
+As this is a 128bit cipher, it needs to be removed.
+The only way to achieve a perfect score now is to disable HTTP/2.&lt;/p&gt;
+
+&lt;p&gt;This is not as obvious as you might think.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://golang.org/doc/go1.6#http2&quot;&gt;from the go 1.6 release notes&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Programs that must disable HTTP/2 can do so by setting Transport.TLSNextProto
+(for clients) or Server.TLSNextProto (for servers) to a non-nil, empty map.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Adding this to our code…&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/3dc885425008c5467349f4ce656232bd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Disabling HTTP/2 also disables the server cipher preference which results the following warning:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The server does not support Forward Secrecy with the reference browsers. Grade reduced to A-.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This can be corrected by setting the &lt;code class=&quot;highlighter-rouge&quot;&gt;PreferServerCipherSuites&lt;/code&gt; option in tls.Config.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/c97eada7b5362a8316d1e4b85b2f609a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;One last test…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/go-ssl-perfect-score/05-cipher-strength.png&quot; alt=&quot;Cipher Strength - SSL Labs Result&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Success!&lt;/p&gt;
+
+&lt;h3 id=&quot;putting-it-all-together&quot;&gt;Putting it all together&lt;/h3&gt;
+
+&lt;script src=&quot;https://gist.github.com/MrPeterLambert/152777ca75d6ff71d2100234373261b4.js&quot;&gt;&lt;/script&gt;
+
+</description>
+        
+        <pubDate>Fri, 20 May 2016 10:00:00 +0100</pubDate>
+        <link>
+        https://blog.bracelab.com/Achieving-perfect-ssl-labs-score-with-go</link>
+        <guid isPermaLink="true">https://blog.bracelab.com/Achieving-perfect-ssl-labs-score-with-go</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

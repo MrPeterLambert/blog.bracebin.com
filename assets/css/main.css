@@ -1,0 +1,18 @@
+.gist .gist-meta {
+  display: none;
+}
+
+.gist-data {
+  padding: 20px 0 20px 0;
+}
+
+.post-header {
+  margin-bottom: 20px;
+}
+
+.tab-size {
+  -webkit-tab-size: 2 !important;
+     -moz-tab-size: 2 !important;
+       -o-tab-size: 2 !important;
+          tab-size: 2 !important;
+}
