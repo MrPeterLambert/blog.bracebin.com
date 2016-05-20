@@ -13,10 +13,10 @@
    
 	<item>
 	  <title>Achieving a Perfect SSL Labs Score with Go</title>
-	  <link>//x-achieving-perfect-ssl-labs-score-with-go</link>
+	  <link>//achieving-perfect-ssl-labs-score-with-go</link>
 	  <author>Peter Lambert</author>
 	  <pubDate>2016-05-20T10:00:00+01:00</pubDate>
-	  <guid>//x-achieving-perfect-ssl-labs-score-with-go</guid>
+	  <guid>//achieving-perfect-ssl-labs-score-with-go</guid>
 	  <description><![CDATA[
 	     
 <p>Go does a great job of getting a good SSL Labs Score out of the box,
