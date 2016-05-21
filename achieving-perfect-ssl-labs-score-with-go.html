@@ -95,9 +95,9 @@
 <header class="main-header post-head " style="background-image: url(/assets/images/cover-pl.jpg) ">
     <nav class="main-nav  overlay  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/bracelab-logo.png" alt="bracelab" /></a>
-
+        
             <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
-
+        
     </nav>
 </header>
 
@@ -111,20 +111,20 @@
             <!-- <a href='/'>Peter Lambert</a> -->
             <time class="post-date" datetime="2016-05-20">20 May 2016</time>
                 <!-- [[tags prefix=" on "]] -->
-
+                
                 on
-
-
+                
+                    
                        <a href='/tag/development'>Development</a>
-
-
-
+                    
+                
+                
             </section>
         </header>
 
         <section class="post-content">
 
-
+            
 <p>Go does a great job of getting a good SSL Labs Score out of the box,
 however I thought it would be interesting to see what would be needed
 to achieve the perfect score, getting 100% in all categories and not just a boring A.</p>
@@ -202,7 +202,7 @@ allowing the server to use the default configuration.</p>
 
 <p>Looking at my private key, the default size provided by Let’s Encrypt is 2048 bit.
 Re-generating a new one was easy. I use <a href="https://github.com/xenolf/lego">an excellent third party ACME client called Lego</a>.
-This tool is also written in Go and is very easy to use. I retrieved a new key with the
+This tool is also written in Go and is very easy to use. I generated a new key and retrieved a new certificate with the
 following command.</p>
 
 <p><code class="highlighter-rouge">lego -d tlstest.example.com -m admin@example.com --rsa-key-size=4096 run</code></p>
@@ -292,18 +292,18 @@ The only way to achieve a perfect score now is to disable HTTP/2.</p>
             <!-- Everything inside the #author tags pulls data from the author -->
             <!-- #author-->
 
-
+            
             <figure class="author-image">
                 <a class="img" href="/author/peterlambert" style="background-image: url(/assets/images/peter-lambert.jpg)"><span class="hidden">'s Picture</span></a>
             </figure>
-
+            
 
             <section class="author">
                 <h4><a href="/author/peterlambert">Peter Lambert</a></h4>
 
-
+                
                     <p> </p>
-
+                
                 <div class="author-meta">
                     <span class="author-location icon-location"> Reading, UK</span>
                     <span class="author-link icon-link"><a href="https://blog.bracelab.com/"> blog.bracelab.com</a></span>
@@ -329,7 +329,7 @@ The only way to achieve a perfect score now is to disable HTTP/2.</p>
             </section>
 
             <!-- Add Disqus Comments -->
-
+            
                 <div id="disqus_thread"></div>
 <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -348,7 +348,7 @@ The only way to achieve a perfect score now is to disable HTTP/2.</p>
         <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
 
-
+            
 
         </footer>
 
@@ -359,10 +359,10 @@ The only way to achieve a perfect score now is to disable HTTP/2.</p>
 <aside class="read-next">
 
     <!-- [[! next_post ]] -->
-
+    
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
-
+    
     <!-- [[! /prev_post ]] -->
 </aside>
 

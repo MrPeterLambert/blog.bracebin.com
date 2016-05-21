@@ -88,7 +88,7 @@ allowing the server to use the default configuration.&lt;/p&gt;
 
 &lt;p&gt;Looking at my private key, the default size provided by Let’s Encrypt is 2048 bit.
 Re-generating a new one was easy. I use &lt;a href=&quot;https://github.com/xenolf/lego&quot;&gt;an excellent third party ACME client called Lego&lt;/a&gt;.
-This tool is also written in Go and is very easy to use. I retrieved a new key with the
+This tool is also written in Go and is very easy to use. I generated a new key and retrieved a new certificate with the
 following command.&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lego -d tlstest.example.com -m admin@example.com --rsa-key-size=4096 run&lt;/code&gt;&lt;/p&gt;
