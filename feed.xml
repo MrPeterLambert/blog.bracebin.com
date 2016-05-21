@@ -25,7 +25,7 @@ I’ll refer to various sections, however you can
 
 &lt;p&gt;First of all, let’s see what Go scores with default configuration.&lt;/p&gt;
 
-&lt;h3 id=&quot;standard-go-server-with-tls&quot;&gt;Standard Go Server With TLS&lt;/h3&gt;
+&lt;h2 id=&quot;standard-go-server-with-tls&quot;&gt;Standard Go Server With TLS&lt;/h2&gt;
 
 &lt;script src=&quot;https://gist.github.com/MrPeterLambert/a45f313a87b2681f3473937a8a51e2cc.js&quot;&gt;&lt;/script&gt;
 
@@ -35,7 +35,7 @@ I’ll refer to various sections, however you can
 
 &lt;p&gt;OK, not bad. An A is a pretty good score. Let’s see if we can get an A+.&lt;/p&gt;
 
-&lt;h3 id=&quot;getting-an-a-with-hsts&quot;&gt;Getting an A+ with HSTS&lt;/h3&gt;
+&lt;h2 id=&quot;getting-an-a-with-hsts&quot;&gt;Getting an A+ with HSTS&lt;/h2&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt; states:&lt;/p&gt;
 
@@ -62,7 +62,7 @@ to https://.&lt;/p&gt;
 will result in reduced client compatibility. This means that many users will not
 be able to access your site.&lt;/p&gt;
 
-&lt;h3 id=&quot;protocol-support&quot;&gt;Protocol Support&lt;/h3&gt;
+&lt;h2 id=&quot;protocol-support&quot;&gt;Protocol Support&lt;/h2&gt;
 
 &lt;p&gt;Protocol support is already at 90%, so there shouldn’t be much to do.&lt;/p&gt;
 
@@ -78,7 +78,7 @@ allowing the server to use the default configuration.&lt;/p&gt;
 
 &lt;p&gt;Great. 100% on protocol support. Onto key exchange.&lt;/p&gt;
 
-&lt;h3 id=&quot;key-exchange&quot;&gt;Key Exchange&lt;/h3&gt;
+&lt;h2 id=&quot;key-exchange&quot;&gt;Key Exchange&lt;/h2&gt;
 
 &lt;p&gt;From the &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt;&lt;/p&gt;
 
@@ -110,7 +110,7 @@ http://tools.ietf.org/html/draft-ietf-msec-mikey-ecc-03 see table:1)
 
 &lt;p&gt;Whoop! 100% on key exchange. Just one more.&lt;/p&gt;
 
-&lt;h3 id=&quot;cipher-strength&quot;&gt;Cipher Strength&lt;/h3&gt;
+&lt;h2 id=&quot;cipher-strength&quot;&gt;Cipher Strength&lt;/h2&gt;
 
 &lt;p&gt;From the &lt;a href=&quot;https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf&quot;&gt;SSL Rating Guide&lt;/a&gt;&lt;/p&gt;
 
@@ -165,7 +165,7 @@ The only way to achieve a perfect score now is to disable HTTP/2.&lt;/p&gt;
 
 &lt;p&gt;Success!&lt;/p&gt;
 
-&lt;h3 id=&quot;putting-it-all-together&quot;&gt;Putting it all together&lt;/h3&gt;
+&lt;h2 id=&quot;putting-it-all-together&quot;&gt;Putting it all together&lt;/h2&gt;
 
 &lt;script src=&quot;https://gist.github.com/MrPeterLambert/152777ca75d6ff71d2100234373261b4.js&quot;&gt;&lt;/script&gt;
 
