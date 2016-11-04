@@ -3,13 +3,10 @@
   <channel>
     <title>blog.bracelab.com - Articles</title>
     <description>Adventures in software development &lt;br/&gt;and getting things done.</description>
-    <link>
-    https://blog.bracelab.com/</link>
-    
-      
+    <link>https://blog.bracebin.com/</link>
       <item>
         <title>Achieving a Perfect SSL Labs Score with Go</title>
-        
+
           <description>
 &lt;p&gt;Go does a great job of getting a good SSL Labs Score out of the box,
 however I thought it would be interesting to see what would be needed
@@ -170,13 +167,12 @@ The only way to achieve a perfect score now is to disable HTTP/2.&lt;/p&gt;
 &lt;script src=&quot;https://gist.github.com/MrPeterLambert/152777ca75d6ff71d2100234373261b4.js&quot;&gt;&lt;/script&gt;
 
 </description>
-        
+
         <pubDate>Fri, 20 May 2016 10:00:00 +0100</pubDate>
-        <link>
-        https://blog.bracelab.com//achieving-perfect-ssl-labs-score-with-go</link>
-        <guid isPermaLink="true">https://blog.bracelab.com//achieving-perfect-ssl-labs-score-with-go</guid>
+        <link>https://blog.bracebin.com/achieving-perfect-ssl-labs-score-with-go</link>
+        <guid isPermaLink="true">https://blog.bracebin.com/achieving-perfect-ssl-labs-score-with-go</guid>
       </item>
-      
-    
+
+
   </channel>
 </rss>
