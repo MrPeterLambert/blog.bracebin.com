@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>blog.bracelab.com - Articles</title>
+    <title>blog.bracebin.com - Articles</title>
     <description>Adventures in software development &lt;br/&gt;and getting things done.</description>
     <link>
-    https://blog.bracelab.com/</link>
+    https://blog.bracebin.com/</link>
     
       
       <item>
@@ -173,8 +173,8 @@ The only way to achieve a perfect score now is to disable HTTP/2.&lt;/p&gt;
         
         <pubDate>Fri, 20 May 2016 10:00:00 +0100</pubDate>
         <link>
-        https://blog.bracelab.com//achieving-perfect-ssl-labs-score-with-go</link>
-        <guid isPermaLink="true">https://blog.bracelab.com//achieving-perfect-ssl-labs-score-with-go</guid>
+        https://blog.bracebin.com//achieving-perfect-ssl-labs-score-with-go</link>
+        <guid isPermaLink="true">https://blog.bracebin.com//achieving-perfect-ssl-labs-score-with-go</guid>
       </item>
       
     
